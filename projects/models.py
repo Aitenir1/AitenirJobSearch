@@ -7,9 +7,13 @@ class Project(models.Model):
     description = models.TextField(blank=True, null=True)
     created_date = models.DateTimeField(auto_now_add=True)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    
+    tags = models.ManyToManyField('Tag')
+
     def __str__(self) -> str:
-        return self.title
+        return f"-------> {self.title}"
+    
+    # def __repr__(self) -> str:
+    #     return self.title
 
 class Review(models.Model):
     VOTES = (
@@ -32,4 +36,7 @@ class Tag(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, unique=True, editable=False)
 
     def __str__(self) -> str:
+        return self.name
+
+    def __repr__(self) -> str:
         return self.name

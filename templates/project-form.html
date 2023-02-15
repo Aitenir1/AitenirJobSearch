@@ -1,0 +1,21 @@
+{% extends 'main.html' %}
+
+{% block content %}
+    <h1>Adding a new project</h1>
+
+    <form method="post">   
+        {% csrf_token %}
+
+        {% for field in form %}
+
+            <div class="field">
+            {{ field.label }}
+            {{ field }}
+            <hr>    
+            </div>
+
+        {% endfor %}
+
+    <button type="submit">Submit</button>
+    </form>
+{% endblock content%}

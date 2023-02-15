@@ -6,21 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>First projects on django</title>
 </head>
-<body> 
-    {% extends 'course.html' %}
+<body>
     {% include 'header.html' %}
-   
-    {% block courseName %}
-        {{course.courseName}}
-    {% endblock %}
-
-    {% block department %}
-        {{course.department}}
-    {% endblock %}
-
-    {% block teacher %}
-        {{course.teacher}}
-    {% endblock %}
-
+    {% block content %}
+    <p> Block Content </p>
+    {% endblock content %}
 </body>
 </html>
