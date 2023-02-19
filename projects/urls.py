@@ -1,6 +1,8 @@
 from django.http import HttpResponse
 from django.urls import path
 from . import views
+from django.conf.urls.static import static
+from django.conf import settings
 # Create your views here.
 urlpatterns = [
     path(
@@ -28,4 +30,5 @@ urlpatterns = [
         view=views.project_delete,
         name="project-delete",
     ),
-]
+    *static(settings.STATIC_URL, document_root=settings.STATIC_ROOT),
+] 

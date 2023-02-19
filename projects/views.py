@@ -62,10 +62,7 @@ def project_edit(request, pi):
     )
 
 def project_delete(request, pi):
-    
-    print(f"(>>>>>>>>>>>>>>>>>>>>>>>>>>request method: {request.method}")
     if request.method == "POST":
-        print("========================================> ")
         project = Project.objects.get(id=pi)
         project.delete()
 
