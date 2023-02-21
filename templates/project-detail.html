@@ -2,7 +2,42 @@
 
 {% block content %}
 
-<h1>Project: {{ project.title }}</h1>
-<p> {{ project.description }} </p>
+    <h1>Project: {{ project.title }}</h1>
+    <p>Created time: {{ project.created_date }}</p>
+    <p> {{ project.description }} </p>
+
+    <h3>Technologies used in this project</h3>
+    <ul>
+    {% for tag in project.tags.all  %}
+    <li>{{ tag }}</li>
+    {% endfor %}
+    </ul>
+
+    <hr>
+
+    <h2>Write a comment</h2>
+
+    <form method="POST">
+
+        {% csrf_token %}
+        {% for field in form %}
+            <p>{{ field.label }}</p>
+            <p>{{ field }}</p>
+        {% endfor %}
+
+        <button type="submit" value="Submit">Submit</button>
+    </form>
+
+    <h2>Comments</h2>
+    <hr>
+
+    {% for review in reviews %}
+
+        <p>{{ review.content }}</p>
+        <p>Vote: {{ review.vote }}</p>
+        <a href="{% url 'review-delete' review.id  %}">Delete the comment</a>
+        <hr>
+
+    {% endfor %}
 
 {% endblock %}

@@ -30,5 +30,10 @@ urlpatterns = [
         view=views.project_delete,
         name="project-delete",
     ),
+    path(
+        route='review-delete/<str:ri>',
+        view=views.review_delete,
+        name='review-delete',
+    ),
     *static(settings.STATIC_URL, document_root=settings.STATIC_ROOT),
 ] 
