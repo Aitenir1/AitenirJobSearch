@@ -1,7 +1,12 @@
-from django.http import HttpResponse
 from django.shortcuts import render, redirect, HttpResponseRedirect
+
 from .models import Project, Review
 from .Forms import ProjectForm, ReviewForm
+from projects.serializers import ProjectSerializer, ReviewSerializer
+
+from rest_framework.response import Response
+from rest_framework import generics
+from rest_framework import views
 
 
 def projects(request):
@@ -9,7 +14,7 @@ def projects(request):
 
     return render(
         request=request,
-        template_name="projects.html",
+        template_name="test.html",
         context={"projects": all_projects}
     )
 
@@ -38,7 +43,7 @@ def project_create(request):
     form = ProjectForm()
 
     if request.method == "POST":
-        project = ProjectForm(request.POST)
+        project = ProjectForm(request.POST, request.FILES)
         if project.is_valid():
             project.save()
             return redirect("projects")
@@ -59,6 +64,7 @@ def project_edit(request, pi):
     if request.method == "POST":
         updated_project = ProjectForm(
             data=request.POST,
+            files=request.FILES,
             instance=project,
         )
 
@@ -82,7 +88,7 @@ def project_delete(request, pi):
 
     return render(
         request=request,
-        template_name="project-delete.html"
+        template_name="project-delete.html",
     )
 
 
@@ -92,3 +98,32 @@ def review_delete(request, ri):
     review.delete()
 
     return redirect("project-detail", pi=pi)
+
+
+def test_template(request):
+    return render(
+        request=request,
+        template_name='test.html',
+    )
+
+
+def create_project(request):
+    return render(
+        request=request,
+        template_name='project-form-2.html',
+    )
+
+# class ProjectsApiView(generics.ListAPIView):
+#     queryset = Project.objects.all()
+#     serializer_class = ProjectSerializer
+#
+#
+# class ReviewApiView(generics.ListAPIView):
+#     queryset = Review.objects.all()
+#     serializer_class = ReviewSerializer
+
+
+class ProjectsApiView(views.APIView):
+    def get(self, request):
+        return Response({'title': 'Good Work'})
+

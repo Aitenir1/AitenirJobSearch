@@ -1,0 +1,46 @@
+{% extends 'main.html' %}
+{% load static %}
+{% include 'header.html' %}
+
+{% block content %}
+    <div class="projects_list">
+        {% for project in projects %}
+
+        <div class="project">
+
+            <div class="image_container">
+              <img src="{{ project.photo.url }}" alt="Snow" style="width:100%;">
+              <h1 id="center">{{ project.title }}</h1>
+            </div>
+
+            <div class="project_info">
+
+                <div class="techs_list">
+
+                    {% for tech in project.tags.all %}
+                        <div class="tech">{{ tech }}</div>
+                    {% endfor %}
+
+                </div>
+
+                <p class="date">{{ project.created_date }}</p>
+
+                <p class="description">{{ project.description }}</p>
+
+                <div class="review">
+                    <a href=""><div class="up">+255</div></a>
+                    <a href=""><div class="down">-100</div></a>
+                </div>
+
+                <div class="edit-delete">
+
+                    <a href="{% url 'project-edit' project.id %}"><img src="/m/edit.png" alt="" class="icon"></a>
+                    <a href="{% url 'project-delete' project.id %}"><img src="/m/delete.png" alt="" class="icon"></a>
+
+                </div>
+            </div>
+        </div>
+
+        {% endfor %}
+    </div>
+{% endblock %}

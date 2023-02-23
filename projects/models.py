@@ -6,6 +6,7 @@ import uuid
 class Project(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True, null=True)
+    photo = models.ImageField(blank=True, null=True, default='img1.jpeg')
     created_date = models.DateTimeField(auto_now_add=True)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     tags = models.ManyToManyField('Tag')
