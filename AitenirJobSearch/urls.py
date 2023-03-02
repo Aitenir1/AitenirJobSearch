@@ -15,13 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from projects import views
-from projects import urls
+from django.conf.urls.static import static
+from django.conf import settings
+
 
 urlpatterns = [
     path('admin', admin.site.urls),
-    path('', include(urls)),
-    path('api/v1/projects/', views.ProjectsApiView.as_view()),
+    path('projects/', include("projects.urls")),
+    path('books/', include("books.urls")),
+    *static(settings.STATIC_URL, document_root=settings.STATIC_ROOT),
+    *static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
+
     # path('api/v1/reviews/', views.ReviewApiView.as_view())
 ]
 

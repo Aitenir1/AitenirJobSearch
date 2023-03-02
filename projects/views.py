@@ -1,12 +1,12 @@
+import os
+
 from django.shortcuts import render, redirect, HttpResponseRedirect
 
 from .models import Project, Review
 from .Forms import ProjectForm, ReviewForm
 from projects.serializers import ProjectSerializer, ReviewSerializer
 
-from rest_framework.response import Response
-from rest_framework import generics
-from rest_framework import views
+from rest_framework import views, generics, viewsets
 
 
 def projects(request):
@@ -14,7 +14,7 @@ def projects(request):
 
     return render(
         request=request,
-        template_name="test.html",
+        template_name="projects.html",
         context={"projects": all_projects}
     )
 
@@ -22,7 +22,7 @@ def projects(request):
 def project_detail(request, pi):
     project = Project.objects.get(id=pi)
     reviews = Review.objects.all().filter(project=project)
-
+    print("Does this shit work?")
     review_form = ReviewForm()
 
     if request.method == "POST":
@@ -82,6 +82,10 @@ def project_edit(request, pi):
 def project_delete(request, pi):
     if request.method == "POST":
         project = Project.objects.get(id=pi)
+
+        if project.photo.name != 'default-image.png':
+            os.remove(project.photo.path)
+
         project.delete()
 
         return redirect("projects")
@@ -103,7 +107,7 @@ def review_delete(request, ri):
 def test_template(request):
     return render(
         request=request,
-        template_name='test.html',
+        template_name='projects.html',
     )
 
 
@@ -113,17 +117,74 @@ def create_project(request):
         template_name='project-form-2.html',
     )
 
+
+class ProjectsViewSet(viewsets.ModelViewSet):
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer
+
+
 # class ProjectsApiView(generics.ListAPIView):
 #     queryset = Project.objects.all()
-#     serializer_class = ProjectSerializer
-#
-#
+#     serializer_class = ProjectSerializer#
+
+
 # class ReviewApiView(generics.ListAPIView):
 #     queryset = Review.objects.all()
 #     serializer_class = ReviewSerializer
 
 
-class ProjectsApiView(views.APIView):
-    def get(self, request):
-        return Response({'title': 'Good Work'})
+# class ProjectsAPIList(generics.ListCreateAPIView):
+#     queryset = Project.objects.all()
+#     serializer_class = ProjectSerializer
 
+
+# class ProjectApiUpdate(generics.UpdateAPIView):
+#     queryset = Project.objects.all()
+#     serializer_class = ProjectSerializer
+
+
+# class ProjectsApiView(views.APIView):
+#     def get(self, request):
+#         projects_list = Project.objects.all()
+#
+#         return Response({'projects': ProjectSerializer(projects_list, many=True).data})
+#
+#     def post(self, request):
+#         serializer = ProjectSerializer(data=request.data)
+#         serializer.is_valid(raise_exception=True)
+#         serializer.save()
+#         # return Response({'post': model_to_dict(project_new)})
+#
+#         return Response({'post': serializer.data})
+#
+#     def put(self, request, *args, **kwargs):
+#         pk = kwargs.get('pk', None)
+#         print(f"------> HEEEEEY {pk}")
+#         if not pk:
+#             return Response({'error': 'Method put is not allowed'})
+#
+#         try:
+#             instance = Project.objects.get(id=pk)
+#         except:
+#             return Response({'error': 'Object does not exist'})
+#
+#         serializer = ProjectSerializer(data=request.data, instance=instance)
+#         serializer.is_valid(raise_exception=True)
+#         serializer.save()
+#
+#         return Response({'post': serializer.data})
+#
+#     def delete(self, request, *args, **kwargs):
+#         pk = kwargs.get('pk', None)
+#
+#         if not pk:
+#             return Response({'error': 'Method delete is not allowed'})
+#
+#         try:
+#             instance = Project.objects.get(id=pk)
+#         except:
+#             return Response({'error': 'Object does not exist'})
+#
+#         instance.delete()
+#
+#         return Response({'status': 'Ok'})

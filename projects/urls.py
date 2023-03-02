@@ -1,8 +1,9 @@
-from django.http import HttpResponse
-from django.urls import path
+from django.urls import path, include
 from . import views
-from django.conf.urls.static import static
-from django.conf import settings
+from rest_framework import routers
+
+router = routers.SimpleRouter()
+router.register(r'projects', views.ProjectsViewSet)
 
 # Create your views here.
 urlpatterns = [
@@ -12,7 +13,7 @@ urlpatterns = [
         name="projects",
     ),
     path(
-        route="project/<str:pi>",
+        route="project-detail/<str:pi>",
         view=views.project_detail,
         name="project-detail",
     ),
@@ -41,6 +42,33 @@ urlpatterns = [
         view=views.test_template,
         name='test-template'
     ),
-    *static(settings.STATIC_URL, document_root=settings.STATIC_ROOT),
-    *static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
+    path(
+        route='api/v1/',
+        view=include(router.urls),
+    ),
+    # path(
+    #     route='api/v1/projects-list/',
+    #     view=views.ProjectsViewSet.as_view(
+    #         actions={'get': 'list'},
+    #     ),
+    # ),
+    # path(
+    #     route='api/v1/projects-list/<str:pk>',
+    #     view=views.ProjectsViewSet.as_view(
+    #         actions={'put': 'update'}
+    #     ),
+    # ),
+    # path(
+    #     route='api/v1/projects-list/',
+    #     view=views.ProjectsAPIList.as_view(),
+    # ),
+    # path(
+    #     route='api/v1/projects-list/<str:pk>/',
+    #     view=views.ProjectApiUpdate.as_view(),
+    # ),
+    # path(
+    #     route='api/v1/projects-list/<str:pk>/',
+    #     view=views.ProjectsApiView.as_view(),
+    # ),
+
 ]

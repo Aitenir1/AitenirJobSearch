@@ -1,0 +1,23 @@
+.book {
+    display: flex;
+    justify-content: space-between;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+tr {
+    border-collapse: collapse;
+    border-bottom: 1px solid black;
+
+}
+
+td {
+    padding: 1em;
+}
+
+button {
+    margin: 1em;
+    padding: 1em
+}

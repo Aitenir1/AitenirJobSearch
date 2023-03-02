@@ -5,3 +5,4 @@ from . import models
 admin.site.register(models.Project)
 admin.site.register(models.Review)
 admin.site.register(models.Tag)
+

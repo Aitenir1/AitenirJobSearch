@@ -1,0 +1,36 @@
+{% extends 'books_main.html' %}
+{% load static %}
+
+{% include 'header.html' %}
+
+{% block content %}
+
+{#    <div class="book">#}
+{#        <div>{{ book.title }}</div>#}
+{#        <div>{{ book.author }}</div>#}
+{#        <div>{{ book.pub_date }}</div>#}
+{#        <div>{{ book.publisher }}</div>#}
+{#    </div>#}
+
+    <table>
+        <tr>
+            <td>Title</td>
+            <td>Author</td>
+            <td>Publishing date</td>
+            <td>Publisher</td>
+        </tr>
+        {% for book in books %}
+            <tr>
+                <td>{{ book.title }}</td>
+                <td>{{ book.author }}</td>
+                <td>{{ book.pub_date }}</td>
+                <td>{{ book.publisher }}</td>
+                <td><a href="{% url 'book-edit' book.id %}">Update project</a></td>
+                <td><a href="{% url 'book-delete' book.id %}">Delete project</a></td>
+            </tr>
+        {% endfor %}
+
+    </table>
+
+
+{% endblock %}
