@@ -73,7 +73,7 @@ def edit(request, cl, mi):
             print("Here is the problem")
             updated_ent.save()
 
-            return redirect(f"{cl}s-list")
+            return redirect("items", cl=cl)
 
     return render(
         request=request,
@@ -92,7 +92,7 @@ def delete(request, cl, mi):
     if request.method == 'POST':
         instance.delete()
 
-        return redirect("items", cl=cl  )
+        return redirect("items", cl=cl )
 
     return render(
         request=request,
