@@ -1,0 +1,15 @@
+{% extends 'books_main.html' %}
+{% load static %}
+
+{% include 'header.html' %}
+
+{% block content %}
+    {% if action == 'create' %}
+        <form action="{% url 'create' cl %}" method="post">
+    {% else %}
+        <form action="{% url 'edit' cl form.instance.id %}" method="post">
+    {% endif %}
+
+        {% include 'form.html' %}
+    </form>
+{% endblock %}

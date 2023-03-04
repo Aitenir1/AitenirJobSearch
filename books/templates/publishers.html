@@ -1,0 +1,26 @@
+{% extends 'books_main.html' %}
+{% load static %}
+
+{% include 'header.html' %}
+
+{% block content %}
+
+    <table>
+        <tr>
+            <td>Name</td>
+            <td>Address</td>
+            <td><a href="{% url 'create' 'publisher' %}">Add a new publisher</a></td>
+        </tr>
+        {% for publisher in publishers_list %}
+            <tr>
+                <td>{{ publisher.name }}</td>
+                <td>{{ publisher.address }}</td>
+                <td><a href="{% url 'edit' 'publisher' publisher.id %}">Update author</a></td>
+                <td><a href="{% url 'delete' 'publisher' publisher.id %}">Delete author</a></td>
+            </tr>
+        {% endfor %}
+
+    </table>
+
+
+{% endblock %}

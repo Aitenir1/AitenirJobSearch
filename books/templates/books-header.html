@@ -5,8 +5,8 @@
 <div class="navbar">
     <h1><span id="title_project">Book</span>land</h1>
     <ul>
-        <li><a href="{% url 'books' %}">List of all book</a></li>
-        <li><a href="{% url 'book-create' %}">Add a new book</a></li>
-        <li><a href="#">Contacts</a></li>
+        <li><a href="{% url 'items' 'book' %}">Books</a></li>
+        <li><a href="{% url 'items' 'author' %}">Authors</a></li>
+        <li><a href="{% url 'items' 'publisher' %}">Publishers</a></li>
     </ul>
 </div>

@@ -1,0 +1,30 @@
+{% extends 'books_main.html' %}
+{% load static %}
+
+{% include 'header.html' %}
+
+{% block content %}
+    {% if action == 'create' %}
+        <form action="{% url 'create' cl %}" method="post">
+    {% else %}
+        <form action="{% url 'edit' cl form.instance.id %}" method="post">
+    {% endif %}
+
+    {% csrf_token %}
+
+    <table>
+    {% for field in form %}
+        <tr>
+            <td>
+                {{ field.label }}
+            </td>
+            <td>
+                {{ field }}
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+    <button type="submit">Submit</button>
+    </form>
+
+{% endblock %}

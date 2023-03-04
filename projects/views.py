@@ -22,7 +22,6 @@ def projects(request):
 def project_detail(request, pi):
     project = Project.objects.get(id=pi)
     reviews = Review.objects.all().filter(project=project)
-    print("Does this shit work?")
     review_form = ReviewForm()
 
     if request.method == "POST":
@@ -51,32 +50,31 @@ def project_create(request):
     return render(
         request=request,
         template_name="project-form.html",
-        context={"form": form}
+        context={"form": form, 'action': 'project-create'}
     )
 
 
 def project_edit(request, pi):
     project = Project.objects.get(id=pi)
-    project_form = ProjectForm(
-        instance=project
-    )
-
+    print("what the fuck is going on here")
     if request.method == "POST":
         updated_project = ProjectForm(
             data=request.POST,
             files=request.FILES,
             instance=project,
         )
-
+        print("Is it working")
         if updated_project.is_valid():
             updated_project.save()
             return redirect("projects")
+    else:
+        form = ProjectForm(instance=project)
 
-    return render(
-        request=request,
-        template_name="project-edit.html",
-        context={"form": project_form}
-    )
+        return render(
+            request=request,
+            template_name="project-form.html",
+            context={"form": form, 'action': 'project-edit'}
+        )
 
 
 def project_delete(request, pi):
@@ -108,13 +106,6 @@ def test_template(request):
     return render(
         request=request,
         template_name='projects.html',
-    )
-
-
-def create_project(request):
-    return render(
-        request=request,
-        template_name='project-form-2.html',
     )
 
 

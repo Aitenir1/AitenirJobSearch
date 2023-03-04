@@ -1,9 +1,17 @@
 {% extends 'main.html' %}
 
 {% block content %}
-    <h1 class="form-title">Adding a new project</h1>
+    <h1 class="form-title">
+        {% if action == 'project-create' %}
+            Adding a new project
+            <form method="post" action="{% url 'project-create' %}" enctype="multipart/form-data">
+            </h1>
+        {% else %}
+            Updating a project
+            </h1>
+            <form method="post" action="{% url 'project-edit' form.instance.id %}" enctype="multipart/form-data">
+        {% endif %}
 
-    <form method="post" action="{% url 'project-create' %}" enctype="multipart/form-data">
         {% csrf_token %}
 
         {% for field in form %}

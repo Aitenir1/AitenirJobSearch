@@ -6,7 +6,7 @@ class Book(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=200)
     author = models.ForeignKey('Author', on_delete=models.CASCADE)
-    pub_date = models.DateTimeField()
+    pub_date = models.DateTimeField(auto_now_add=True)
     publisher = models.ForeignKey('Publisher', on_delete=models.CASCADE)
 
     def __str__(self) -> str:
