@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_file %}
+{#    <link rel="stylesheet" href="{% static 'books/style.css' %}">#}
+{% endblock %}
+
+{% block title %}
+    <h1><span id="title_project">Book</span>Land</h1>
+{% endblock %}
+
+{% block links %}
+    <ul>
+
+        <li><a href="#">{{ user }}</a></li>
+        <li><a href="{% url 'items' 'book' %}">Books</a></li>
+        <li><a href="{% url 'items' 'author' %}">Authors</a></li>
+        <li><a href="{% url 'items' 'publisher' %}">Publishers</a></li>
+        <li><a href="{% url 'projects' %}">Projects</a></li>
+        {% if user == '' %}
+            <li><a href="{% url 'login-page' %}">Login</a></li>
+        {% else %}
+            <li><a href="{% url 'logout-page' %}">Logout</a></li>
+        {% endif %}
+
+
+    </ul>
+{% endblock %}
+
+{% block content %}
+{% endblock %}

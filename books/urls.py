@@ -39,7 +39,16 @@ urlpatterns = [
         view=views.items,
         name='items'
     ),
-
+    path(
+        'search/<str:cl>',
+        view=views.search,
+        name='search',
+    ),
+    path(
+        'book/<str:pk>',
+        view=views.book_detail,
+        name='book_detail'
+    )
     # path(
     #     route='book-create',
     #     view=views.book_create,

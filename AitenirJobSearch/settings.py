@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'projects',
     'books',
+    'user',
     'rest_framework',
 ]
 
@@ -57,7 +58,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            # Path.joinpath(BASE_DIR, 'templates')
+            Path.joinpath(BASE_DIR, 'templates')
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -88,7 +89,7 @@ DATABASES = {
     }
 }
 
-
+LOGIN_URL = '/user/login'
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 

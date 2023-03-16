@@ -18,3 +18,5 @@ class PublisherForm(ModelForm):
     class Meta:
         model = Publisher
         fields = '__all__'
+
+

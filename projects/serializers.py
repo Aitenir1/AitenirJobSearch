@@ -11,7 +11,6 @@ from .models import Project, Review
 class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
-        # fields = '__all__'
         fields = ['title', 'description']
 
 

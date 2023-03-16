@@ -1,32 +1,56 @@
-{% extends 'books_main.html' %}
+{% extends 'base.html' %}
 {% load static %}
 
-{% include 'header.html' %}
+{% block css_file %}
+    <link rel="stylesheet" href="{% static 'books/style.css' %}">
+{% endblock %}
+
+{% block title %}
+    <h1><span id="title_project">Book</span>Land</h1>
+{% endblock %}
+
+{% block links %}
+    <ul>
+
+        <li><a href="#">{{ user }}</a></li>
+        <li><a href="{% url 'items' 'book' %}">Books</a></li>
+        <li><a href="{% url 'items' 'author' %}">Authors</a></li>
+        <li><a href="{% url 'items' 'publisher' %}">Publishers</a></li>
+        <li><a href="{% url 'projects' %}">Projects</a></li>
+        {% if user == '' %}
+            <li><a href="{% url 'login-page' %}">Login</a></li>
+        {% else %}
+            <li><a href="{% url 'logout-page' %}">Logout</a></li>
+        {% endif %}
+
+
+    </ul>
+{% endblock %}
 
 {% block content %}
-
-
     <table>
         <tr>
             <td>Title</td>
             <td>Author</td>
             <td>Publishing date</td>
             <td>Publisher</td>
-            <td><a href="{% url 'create' 'book' %}">Add a new book</a></td>
+            <td><a href="{% url 'create' cl='book' %}">Add a new book</a></td>
+            <td><a href="{% url 'search' cl='book' %}">Search</a></td>
 
         </tr>
+
         {% for book in books_list %}
-            <tr>
-                <td>{{ book.title }}</td>
+
+            <tr class="{% cycle 'row1' 'row2' %}">
+                <td><a href="{% url 'book_detail' book.id %}">{{ book.title }}</a></td>
                 <td>{{ book.author }}</td>
                 <td>{{ book.pub_date }}</td>
                 <td>{{ book.publisher }}</td>
                 <td><a href="{% url 'edit' 'book' book.id %}">Update project</a></td>
                 <td><a href="{% url 'delete' 'book' book.id %}">Delete project</a></td>
             </tr>
+
         {% endfor %}
 
     </table>
-
-
 {% endblock %}

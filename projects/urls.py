@@ -37,11 +37,11 @@ urlpatterns = [
         view=views.review_delete,
         name='review-delete',
     ),
-    path(
-        route='test',
-        view=views.test_template,
-        name='test-template'
-    ),
+    # path(
+    #     route='test',
+    #     view=views.test_template,
+    #     name='test-template'
+    # ),
     path(
         route='api/v1/',
         view=include(router.urls),

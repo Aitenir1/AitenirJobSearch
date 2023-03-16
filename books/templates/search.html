@@ -1,0 +1,42 @@
+{% extends 'books.html' %}
+{% load static %}
+
+{% block content %}
+{#    {% if action == 'create' %}#}
+{#        <form action="{% url 'create' cl %}" method="post">#}
+{#    {% else %}#}
+{#        <form action="{% url 'edit' cl form.instance.id %}" method="post">#}
+{#    {% endif %}#}
+    <form action="{% url 'search' cl %}" method="post">
+        {% csrf_token %}
+
+        <input type="search" name="q" placeholder="Search by name of quote..." class="form-control">
+
+        <button type="submit">Submit</button>
+
+    </form>
+
+    <table>
+        <tr>
+            <td>Title</td>
+            <td>Author</td>
+            <td>Publishing date</td>
+            <td>Publisher</td>
+            <td><a href="{% url 'create' cl='book' %}">Add a new book</a></td>
+            <td><a href="{% url 'search' cl='book' %}">Search</a></td>
+
+        </tr>
+        {% for book in books_list %}
+            <tr>
+                <td>{{ book.title }}</td>
+                <td>{{ book.author }}</td>
+                <td>{{ book.pub_date }}</td>
+                <td>{{ book.publisher }}</td>
+                <td><a href="{% url 'edit' 'book' book.id %}">Update project</a></td>
+                <td><a href="{% url 'delete' 'book' book.id %}">Delete project</a></td>
+            </tr>
+        {% endfor %}
+
+    </table>
+
+{% endblock %}

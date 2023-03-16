@@ -1,0 +1,28 @@
+{% extends 'books.html' %}
+{% load static %}
+
+{% block content %}
+
+
+
+{#    <a href="{% url 'create' cl='book' %}">Add a new book</a>#}
+{#    <a href="{% url 'search' cl='book' %}">Search</a>#}
+<div class="book_content">
+    <div class="right_photo">
+        <img src="{{ book.photo.url }}" alt="" width="500px">
+    </div>
+    <div class="info">
+        <h1>{{ book.title }}</h1>
+        <h3 class="author">{{ book.author }}</h3>
+{#        <h2>{{ book.publisher }}</h2>#}
+        <p class="date">{{ book.pub_date }}</p>
+        <p>{{ book.description }}</p>
+    </div>
+
+</div>
+
+
+
+
+
+{% endblock %}

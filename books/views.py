@@ -2,6 +2,7 @@ from django.shortcuts import render, HttpResponse, redirect
 from .models import Book, Author, Publisher
 
 from .Forms import BookForm, AuthorForm, PublisherForm
+from django.contrib.auth.decorators import login_required
 
 
 schema = {
@@ -12,16 +13,25 @@ schema = {
 
 
 # def books(request):
+#
+#     username = 'Not logged in'
+#
+#     if request.user.is_authenticated():
+#         username = request.user.username
+#
 #     book_list = Book.objects.all()
 #
 #     return render(
 #         request=request,
 #         template_name="books.html",
-#         context={"books": book_list}
+#         context={"books": book_list, "user": username}
 #     )
 
 
+# @login_required
 def items(request, cl=None):
+    username = request.user.username if request.user.is_authenticated else ''
+
     if cl is None:
         cl = 'book'
 
@@ -32,17 +42,18 @@ def items(request, cl=None):
     return render(
         request=request,
         template_name=f'{cl}s.html',
-        context={f'{cl}s_list': items_list}
+        context={f'{cl}s_list': items_list, 'user': username}
     )
 
 
+@login_required
 def create(request, cl):
     model = schema[cl][0]
     form = schema[cl][1]()
 
     if request.method == 'POST':
 
-        new_ent = schema[cl][1](request.POST)
+        new_ent = schema[cl][1](request.POST, files=request.FILES)
         print(new_ent.is_valid())
         if new_ent.is_valid():
             new_ent.save()
@@ -59,6 +70,7 @@ def create(request, cl):
     )
 
 
+@login_required
 def edit(request, cl, mi):
     model = schema[cl][0]
     instance = model.objects.get(id=mi)
@@ -67,7 +79,7 @@ def edit(request, cl, mi):
     if request.method == 'POST':
         print('------------------> Great 2')
 
-        updated_ent = schema[cl][1](request.POST, instance=instance)
+        updated_ent = schema[cl][1](request.POST, instance=instance, files=request.FILES)
         print(updated_ent.is_valid())
         if updated_ent.is_valid():
             print("Here is the problem")
@@ -85,6 +97,7 @@ def edit(request, cl, mi):
     )
 
 
+@login_required
 def delete(request, cl, mi):
     model = schema[cl][0]
     instance = model.objects.get(id=mi)
@@ -92,7 +105,7 @@ def delete(request, cl, mi):
     if request.method == 'POST':
         instance.delete()
 
-        return redirect("items", cl=cl )
+        return redirect("items", cl=cl)
 
     return render(
         request=request,
@@ -103,6 +116,35 @@ def delete(request, cl, mi):
         }
     )
 
+
+@login_required
+def search(request, cl):
+    model = schema[cl][0]
+
+    if request.method == 'POST':
+        print("Heeey")
+        return redirect('items', cl=cl)
+
+    return render(
+        request=request,
+        template_name='search.html',
+        context={
+            'cl': cl,
+        }
+    )
+
+
+@login_required
+def book_detail(request, pk):
+    book = Book.objects.get(id=pk)
+
+    return render(
+        request=request,
+        template_name='book_detail.html',
+        context={
+            'book': book
+        }
+    )
 # def book_create(request):
 #     form = BookForm()
 #

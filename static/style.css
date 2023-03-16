@@ -1,0 +1,48 @@
+:root {
+  --white: #F1F1F2;
+  --grey: #BCBABE;
+  --ice: #A1D6E2;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Dosis', 'sans-serif';
+}
+
+a {
+    text-decoration: none;
+}
+
+.hero {
+    width: 80%;
+    margin: auto;
+}
+
+.navbar {
+    margin: 30px auto;
+    display: flex;
+    align-items: center;
+}
+
+#title_project {
+    color: var(--ice)
+}
+
+.navbar ul {
+    flex: 1;
+    text-align: right;
+}
+
+.navbar ul li {
+    display: inline-block;
+    list-style: none;
+    margin: 0 25px;
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    color: black;
+    padding: 0 10px;
+    position: relative;
+}

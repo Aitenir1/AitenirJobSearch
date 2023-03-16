@@ -1,6 +1,7 @@
 import os
 
 from django.shortcuts import render, redirect, HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 
 from .models import Project, Review
 from .Forms import ProjectForm, ReviewForm
@@ -9,6 +10,7 @@ from projects.serializers import ProjectSerializer, ReviewSerializer
 from rest_framework import views, generics, viewsets
 
 
+@login_required
 def projects(request):
     all_projects = Project.objects.all()
 
@@ -19,6 +21,7 @@ def projects(request):
     )
 
 
+@login_required
 def project_detail(request, pi):
     project = Project.objects.get(id=pi)
     reviews = Review.objects.all().filter(project=project)
@@ -38,6 +41,7 @@ def project_detail(request, pi):
     )
 
 
+@login_required
 def project_create(request):
     form = ProjectForm()
 
@@ -54,9 +58,10 @@ def project_create(request):
     )
 
 
+@login_required
 def project_edit(request, pi):
     project = Project.objects.get(id=pi)
-    print("what the fuck is going on here")
+    # print("what the fuck is going on here")
     if request.method == "POST":
         updated_project = ProjectForm(
             data=request.POST,
@@ -77,6 +82,7 @@ def project_edit(request, pi):
         )
 
 
+@login_required
 def project_delete(request, pi):
     if request.method == "POST":
         project = Project.objects.get(id=pi)
@@ -94,19 +100,13 @@ def project_delete(request, pi):
     )
 
 
+@login_required
 def review_delete(request, ri):
     review = Review.objects.get(id=ri)
     pi = review.project.id
     review.delete()
 
     return redirect("project-detail", pi=pi)
-
-
-def test_template(request):
-    return render(
-        request=request,
-        template_name='projects.html',
-    )
 
 
 class ProjectsViewSet(viewsets.ModelViewSet):

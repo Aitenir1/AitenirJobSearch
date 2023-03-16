@@ -1,6 +1,22 @@
-{% extends 'main.html' %}
+{% extends 'base.html' %}
 {% load static %}
-{% include 'header.html' %}
+
+{% block css_file %}
+    <link rel="stylesheet" href="{% static 'projects/style.css' %}">
+{% endblock %}
+
+{% block title %}
+    <h1><span id="title_project">Project</span>Land</h1>
+{% endblock %}
+
+{% block links %}
+    <ul>
+        <li><a href="{% url 'projects' %}">List of all project</a></li>
+        <li><a href="{% url 'project-create' %}">Add a new project</a></li>
+        <li><a href="{% url 'books' %}">Books</a></li>
+        <li><a href="{% url 'logout-page' %}">Logout</a></li>
+    </ul>
+{% endblock %}
 
 {% block content %}
     <div class="projects_list">
@@ -27,9 +43,6 @@
 
                 <p class="description">{{ project.description }}</p>
 
-
-
-
                 <div class="review">
                     <a href=""><div class="up">+255</div></a>
                     <a href=""><div class="down">-100</div></a>
@@ -39,7 +52,7 @@
 
                     <a href="{% url 'project-edit' project.id %}"><img src="/m/edit.png" alt="" class="icon"></a>
                     <a href="{% url 'project-delete' project.id %}"><img src="/m/delete.png" alt="" class="icon"></a>
-                    
+
                 </div>
             </div>
         </div>

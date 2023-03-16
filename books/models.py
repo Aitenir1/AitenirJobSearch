@@ -6,6 +6,8 @@ class Book(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=200)
     author = models.ForeignKey('Author', on_delete=models.CASCADE)
+    photo = models.ImageField(blank=True, null=True, default='default-image.png')
+    description = models.TextField(blank=True, null=True, default='It is a new book')
     pub_date = models.DateTimeField(auto_now_add=True)
     publisher = models.ForeignKey('Publisher', on_delete=models.CASCADE)
 

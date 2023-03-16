@@ -1,6 +1,7 @@
 .book {
     display: flex;
     justify-content: space-between;
+    /*background-color: red;*/
 }
 
 table {
@@ -20,4 +21,17 @@ td {
 button {
     margin: 1em;
     padding: 1em
+}
+
+.book_content {
+    display: flex;
+}
+
+.right_photo {
+    padding-right: 2em
+}
+
+.date, .author {
+    color: #BCBABE;
+    margin-bottom: .2em;
 }

@@ -8,13 +8,26 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'projects/style.css' %}">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 
-    <title>Projects</title>
+    {% block css_file %}
+    <link rel="stylesheet" href="{% static 'projects/style.css' %}">
+    {% endblock %}
+
+
+{#    <title>{% block title %} {% endblock %} </title>#}
 </head>
 <body>
     <div class="hero">
-        {% include 'header.html' %}
+
+        <div class="navbar">
+            {% block title %}
+                Title
+            {% endblock %}
+{#            <h1><span id="title_project">{% block title %}Title{% endblock %}</span>land</h1>#}
+        {% block links %}
+        {% endblock %}
+    </div>
         {% block content %}
         <p> Block Content </p>
         {% endblock content %}

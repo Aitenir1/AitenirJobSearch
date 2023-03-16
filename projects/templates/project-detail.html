@@ -1,7 +1,6 @@
-{% extends 'main.html' %}
+{% extends 'projects.html' %}
 
 {% block content %}
-
     <h1>Project: {{ project.title }}</h1>
     <p>Created time: {{ project.created_date }}</p>
     <img src="{{ project.photo.url }}">
@@ -9,9 +8,9 @@
 
     <h3>Technologies used in this project</h3>
     <ul>
-    {% for tag in project.tags.all  %}
-    <li>{{ tag }}</li>
-    {% endfor %}
+        {% for tag in project.tags.all  %}
+            <li>{{ tag }}</li>
+        {% endfor %}
     </ul>
 
     <hr>
